@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT - University of Moratuwa</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --gold: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(255,255,255,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BACKGROUND EFFECTS */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulse 8s ease-in-out infinite;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.1)} }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,14,26,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer;
+  }
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 14px; color: white;
+  }
+  .nav-logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; }
+  .nav-logo-text span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    transition: color 0.2s; font-weight: 500;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative; z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px; color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.8s ease both;
+  }
+  .hero-badge::before { content: '◉'; font-size: 10px; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+  .hero h1 .line1 { display: block; }
+  .hero h1 .line2 {
+    display: block;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite, fadeInUp 0.8s ease 0.2s both;
+  }
+  @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+
+  .hero p {
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 560px; line-height: 1.7;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.8s ease 0.4s both;
+  }
+
+  .hero-stats {
+    display: flex; gap: 3rem;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.8s ease 0.5s both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    color: var(--accent);
+  }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .hero-cta {
+    display: flex; gap: 1rem;
+    animation: fadeInUp 0.8s ease 0.6s both;
+  }
+  .btn-primary {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--accent), #0099bb);
+    color: #0a0e1a; font-weight: 700; font-size: 14px;
+    border: none; border-radius: 8px; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.3); }
+
+  .btn-secondary {
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--text); font-weight: 500; font-size: 14px;
+    border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-secondary:hover { border-color: var(--accent); background: rgba(0,212,255,0.05); }
+
+  @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  /* FLOATING GRID DECORATION */
+  .grid-deco {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 800px; height: 800px;
+    background-image: 
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    border-radius: 50%;
+    mask-image: radial-gradient(circle, black 40%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* SUBJECTS SECTION */
+  .section { padding: 6rem 2rem; position: relative; z-index: 1; }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-tag {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--accent); letter-spacing: 3px;
+    text-transform: uppercase; margin-bottom: 1rem;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--muted); font-size: 1rem; max-width: 480px; margin: 0 auto; }
+
+  /* SUBJECT CARDS */
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .subject-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .subject-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--card-accent, var(--accent));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .subject-card:hover { transform: translateY(-4px); border-color: var(--card-accent, var(--accent)); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .subject-card:hover::before { opacity: 1; }
+
+  .card-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+    background: var(--card-icon-bg, rgba(0,212,255,0.1));
+  }
+  .card-code {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--card-accent, var(--accent));
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem; font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .card-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem; }
+  .card-topics {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 1.5rem;
+  }
+  .topic-tag {
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 11px; color: var(--muted);
+  }
+  .card-arrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600;
+    color: var(--card-accent, var(--accent));
+    transition: gap 0.2s;
+  }
+  .subject-card:hover .card-arrow { gap: 10px; }
+
+  /* SUB PAGES */
+  .subpage {
+    display: none;
+    min-height: 100vh;
+    padding: 6rem 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .subpage.active { display: block; }
+
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 13px; color: var(--muted);
+    cursor: pointer; margin-bottom: 3rem;
+    transition: all 0.2s;
+  }
+  .back-btn:hover { color: var(--text); border-color: var(--accent); }
+
+  .subpage-hero {
+    margin-bottom: 4rem;
+  }
+  .subpage-tag {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 1rem; display: block;
+  }
+  .subpage-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800; letter-spacing: -2px;
+    margin-bottom: 1rem;
+  }
+  .subpage-desc { color: var(--muted); font-size: 1.05rem; line-height: 1.7; max-width: 640px; }
+
+  /* THEORY CARDS */
+  .theory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .theory-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    transition: border-color 0.3s;
+  }
+  .theory-card:hover { border-color: rgba(255,255,255,0.15); }
+
+  .theory-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .theory-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .theory-body { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+  .theory-body code {
+    background: rgba(0,212,255,0.1);
+    color: var(--accent);
+    padding: 2px 6px; border-radius: 4px;
+    font-family: 'DM Mono', monospace; font-size: 0.8rem;
+  }
+
+  /* CONCEPT ACCORDION */
+  .concept-section { margin-bottom: 2rem; }
+  .concept-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    margin-bottom: 2px;
+  }
+  .concept-header:hover { border-color: rgba(255,255,255,0.15); }
+  .concept-header.open { border-color: var(--accent2); border-radius: 10px 10px 0 0; }
+  .concept-header-left { display: flex; align-items: center; gap: 12px; }
+  .concept-icon { font-size: 20px; }
+  .concept-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .concept-chevron { transition: transform 0.3s; font-size: 12px; color: var(--muted); }
+  .concept-header.open .concept-chevron { transform: rotate(180deg); }
+  .concept-body {
+    display: none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 1.5rem;
+    font-size: 0.9rem; color: var(--muted); line-height: 1.8;
+  }
+  .concept-body.open { display: block; }
+  .concept-body h4 {
+    color: var(--text); font-family: 'Syne', sans-serif;
+    font-size: 0.9rem; margin: 1rem 0 0.5rem;
+  }
+  .concept-body ul { padding-left: 1.2rem; }
+  .concept-body ul li { margin-bottom: 0.4rem; }
+  .concept-body .formula {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 0.75rem 1rem;
+    border-radius: 0 8px 8px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem; color: var(--accent);
+    margin: 0.75rem 0;
+  }
+
+  /* PROGRESS BAR */
+  .progress-section { margin-bottom: 3rem; }
+  .progress-title {
+    font-family: 'Syne', sans-serif; font-size: 1.4rem;
+    font-weight: 700; margin-bottom: 1.5rem;
+  }
+  .progress-item { margin-bottom: 1rem; }
+  .progress-top { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+  .progress-bar-bg { background: var(--surface2); border-radius: 100px; height: 6px; }
+  .progress-bar-fill {
+    height: 100%; border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 1s ease;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem; font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-sub { font-size: 0.85rem; color: var(--muted); }
+
+  /* PAGE TRANSITIONS */
+  #home, .subpage {
+    animation: pageIn 0.4s ease;
+  }
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+  .highlight { color: var(--accent); }
+  .highlight2 { color: var(--accent2); }
+  .highlight3 { color: var(--accent3); }
+  .highlight4 { color: var(--gold); }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    border-left: 3px solid var(--accent2);
+    padding: 1rem 1.5rem;
+    background: rgba(124,58,237,0.05);
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* TABLE */
+  .theory-table {
+    width: 100%; border-collapse: collapse; margin: 1rem 0;
+    font-size: 0.85rem;
+  }
+  .theory-table th {
+    background: var(--surface2); padding: 0.75rem 1rem;
+    text-align: left; border: 1px solid var(--border);
+    font-family: 'Syne', sans-serif; font-size: 0.8rem;
+    color: var(--accent);
+  }
+  .theory-table td {
+    padding: 0.75rem 1rem; border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .theory-table tr:hover td { background: rgba(255,255,255,0.02); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon">IT</div>
+    <div class="nav-logo-text">UoM <span>IT</span></div>
+  </div>
+  <div class="nav-links">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('co')">Comp. Org</a>
+    <a onclick="showPage('pf')">Programming</a>
+    <a onclick="showPage('ds')">Digital Sys</a>
+    <a onclick="showPage('en')">English</a>
+    <a onclick="showPage('mm')">Multimedia</a>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home">
+  <section class="hero">
+    <div class="grid-deco"></div>
+    <div class="hero-badge">University of Moratuwa — IT Department</div>
+    <h1>
+      <span class="line1">Information</span>
+      <span class="line2">Technology</span>
+    </h1>
+    <p>Your complete academic companion. Explore theory, concepts, and resources across all your core IT subjects — organized, beautiful, and always accessible.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">5</div><div class="stat-label">Subjects</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Concepts</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Knowledge</div></div>
+    </div>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.getElementById('subjects').scrollIntoView({behavior:'smooth'})">Explore Subjects</button>
+      <button class="btn-secondary" onclick="showPage('co')">Start Learning →</button>
+    </div>
+  </section>
+
+  <section class="section" id="subjects">
+    <div class="section-header">
+      <span class="section-tag">// curriculum</span>
+      <h2 class="section-title">Your Subjects</h2>
+      <p class="section-sub">Click any subject to dive into theory, concepts, and key topics.</p>
+    </div>
+    <div class="subjects-grid">
+
+      <!-- COMPUTER ORGANIZATION -->
+      <div class="subject-card" style="--card-accent:#00d4ff;--card-icon-bg:rgba(0,212,255,0.1)" onclick="showPage('co')">
+        <div class="card-icon">🖥️</div>
+        <div class="card-code">// CS101</div>
+        <div class="card-title">Computer Organization</div>
+        <div class="card-desc">Understand how computers work at the hardware level — from logic gates to CPU architecture and memory systems.</div>
+        <div class="card-topics">
+          <span class="topic-tag">CPU Architecture</span>
+          <span class="topic-tag">Memory</span>
+          <span class="topic-tag">I/O Systems</span>
+          <span class="topic-tag">Instruction Set</span>
+        </div>
+        <span class="card-arrow">Explore Subject →</span>
+      </div>
+
+      <!-- PROGRAMMING FUNDAMENTALS -->
+      <div class="subject-card" style="--card-accent:#7c3aed;--card-icon-bg:rgba(124,58,237,0.1)" onclick="showPage('pf')">
+        <div class="card-icon">💻</div>
+        <div class="card-code">// CS102</div>
+        <div class="card-title">Programming Fundamentals</div>
+        <div class="card-desc">Build a strong foundation in programming logic, data structures, algorithms, and problem-solving techniques.</div>
+        <div class="card-topics">
+          <span class="topic-tag">Variables</span>
+          <span class="topic-tag">Loops</span>
+          <span class="topic-tag">Functions</span>
+          <span class="topic-tag">Arrays</span>
+        </div>
+        <span class="card-arrow" style="color:#7c3aed">Explore Subject →</span>
+      </div>
+
+      <!-- DIGITAL SYSTEMS -->
+      <div class="subject-card" style="--card-accent:#10b981;--card-icon-bg:rgba(16,185,129,0.1)" onclick="showPage('ds')">
+        <div class="card-icon">⚡</div>
+        <div class="card-code">// EE101</div>
+        <div class="card-title">Digital Systems</div>
+        <div class="card-desc">Explore binary logic, Boolean algebra, combinational and sequential circuits that form the foundation of digital electronics.</div>
+        <div class="card-topics">
+          <span class="topic-tag">Boolean Algebra</span>
+          <span class="topic-tag">Logic Gates</span>
+          <span class="topic-tag">Flip-Flops</span>
+          <span class="topic-tag">Counters</span>
+        </div>
+        <span class="card-arrow" style="color:#10b981">Explore Subject →</span>
+      </div>
+
+      <!-- ENGLISH -->
+      <div class="subject-card" style="--card-accent:#f59e0b;--card-icon-bg:rgba(245,158,11,0.1)" onclick="showPage('en')">
+        <div class="card-icon">📖</div>
+        <div class="card-code">// EN101</div>
+        <div class="card-title">English</div>
+        <div class="card-desc">Develop professional communication, technical writing, and language skills essential for the IT industry.</div>
+        <div class="card-topics">
+          <span class="topic-tag">Grammar</span>
+          <span class="topic-tag">Technical Writing</span>
+          <span class="topic-tag">Presentations</span>
+          <span class="topic-tag">Vocabulary</span>
+        </div>
+        <span class="card-arrow" style="color:#f59e0b">Explore Subject →</span>
+      </div>
+
+      <!-- MULTIMEDIA -->
+      <div class="subject-card" style="--card-accent:#ec4899;--card-icon-bg:rgba(236,72,153,0.1)" onclick="showPage('mm')">
+        <div class="card-icon">🎨</div>
+        <div class="card-code">// MM101</div>
+        <div class="card-title">Multimedia</div>
+        <div class="card-desc">Master the world of images, audio, video, animation, and interactive media design in the digital age.</div>
+        <div class="card-topics">
+          <span class="topic-tag">Image Processing</span>
+          <span class="topic-tag">Audio/Video</span>
+          <span class="topic-tag">Animation</span>
+          <span class="topic-tag">Compression</span>
+        </div>
+        <span class="card-arrow" style="color:#ec4899">Explore Subject →</span>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">UoM <span>IT</span></div>
+    <div class="footer-sub">Information Technology · University of Moratuwa · Sri Lanka</div>
+  </footer>
+</div>
+
+<!-- ===================== COMPUTER ORGANIZATION PAGE ===================== -->
+<div id="page-co" class="subpage">
+  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+  <div class="subpage-hero">
+    <span class="subpage-tag" style="color:#00d4ff">// CS101 · Computer Organization</span>
+    <h1 class="subpage-title">Computer<br>Organization</h1>
+    <p class="subpage-desc">From transistors to CPU pipelines — understand the architecture that powers every computation.</p>
+  </div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 01</div>
+      <div class="theory-title">Von Neumann Architecture</div>
+      <div class="theory-body">The classical model where a single memory stores both program instructions and data. Key components: <code>CPU</code>, <code>Memory</code>, <code>I/O</code>, and the <code>Bus</code> connecting them. The CPU fetches, decodes, and executes instructions in a cycle.</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 02</div>
+      <div class="theory-title">CPU Components</div>
+      <div class="theory-body">The CPU contains the <code>ALU</code> (arithmetic/logic), <code>CU</code> (control unit), and <code>Registers</code>. Key registers: Program Counter (PC), Instruction Register (IR), Memory Address Register (MAR), and Memory Buffer Register (MBR).</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 03</div>
+      <div class="theory-title">Memory Hierarchy</div>
+      <div class="theory-body">Registers → Cache (L1/L2/L3) → RAM → Secondary Storage. Faster = smaller and more expensive. The <code>locality of reference</code> principle means frequently used data is kept in faster memory.</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">⚙️</span><span class="concept-name">Instruction Execution Cycle</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <p>The <strong>Fetch-Decode-Execute (FDE)</strong> cycle is the fundamental operation of a CPU:</p>
+      <h4>1. Fetch</h4>
+      <ul><li>Copy address from PC to MAR</li><li>Read instruction from memory into MBR</li><li>Copy MBR to IR, increment PC</li></ul>
+      <h4>2. Decode</h4>
+      <ul><li>Control Unit interprets the instruction in IR</li><li>Identifies the operation and operands</li></ul>
+      <h4>3. Execute</h4>
+      <ul><li>ALU performs the operation</li><li>Results stored in registers or memory</li></ul>
+      <div class="formula">PC → MAR → Memory → MBR → IR → Decode → Execute</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">🔢</span><span class="concept-name">Number Systems & Data Representation</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <p>Computers work in binary (base-2). Understanding conversions is essential:</p>
+      <table class="theory-table">
+        <tr><th>System</th><th>Base</th><th>Digits</th><th>Example</th></tr>
+        <tr><td>Binary</td><td>2</td><td>0,1</td><td>1010₂ = 10</td></tr>
+        <tr><td>Octal</td><td>8</td><td>0–7</td><td>12₈ = 10</td></tr>
+        <tr><td>Decimal</td><td>10</td><td>0–9</td><td>10</td></tr>
+        <tr><td>Hexadecimal</td><td>16</td><td>0–9, A–F</td><td>A₁₆ = 10</td></tr>
+      </table>
+      <div class="formula">Binary to Decimal: 1010₂ = 1×2³ + 0×2² + 1×2¹ + 0×2⁰ = 10</div>
+      <h4>Two's Complement (for signed integers)</h4>
+      <ul>
+        <li>Invert all bits, then add 1</li>
+        <li>Example: −5 in 8-bit = 11111011</li>
+        <li>Range: −128 to +127 for 8-bit</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">🚀</span><span class="concept-name">Pipelining</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <p>Pipelining overlaps multiple instruction cycles to improve throughput. Like an assembly line — while one instruction executes, the next is being decoded, and the one after is being fetched.</p>
+      <div class="formula">Speedup = Time without pipeline / Time with pipeline</div>
+      <h4>Hazards in Pipelining</h4>
+      <ul>
+        <li><strong>Data Hazard:</strong> Instruction needs result of previous instruction</li>
+        <li><strong>Control Hazard:</strong> Branch instructions disrupt pipeline flow</li>
+        <li><strong>Structural Hazard:</strong> Two instructions need same hardware resource</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-title">Topic Coverage</div>
+    <div class="progress-item"><div class="progress-top"><span>Von Neumann Architecture</span><span>90%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:90%"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>CPU & Registers</span><span>85%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:85%"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Memory Hierarchy</span><span>75%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:75%"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Pipelining</span><span>65%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:65%"></div></div></div>
+  </div>
+
+  <button class="back-btn" onclick="showPage('home')">← Back to All Subjects</button>
+</div>
+
+<!-- ===================== PROGRAMMING FUNDAMENTALS PAGE ===================== -->
+<div id="page-pf" class="subpage">
+  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+  <div class="subpage-hero">
+    <span class="subpage-tag" style="color:#7c3aed">// CS102 · Programming Fundamentals</span>
+    <h1 class="subpage-title">Programming<br>Fundamentals</h1>
+    <p class="subpage-desc">Master the building blocks of software — logic, control flow, functions, and data structures.</p>
+  </div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 01</div>
+      <div class="theory-title">Variables & Data Types</div>
+      <div class="theory-body">Variables are named storage locations. Types include <code>int</code>, <code>float</code>, <code>char</code>, <code>bool</code>, and <code>string</code>. Type determines the size and kind of data stored and operations allowed.</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 02</div>
+      <div class="theory-title">Control Flow</div>
+      <div class="theory-body">Programs don't always run top-to-bottom. <code>if/else</code>, <code>switch</code>, <code>for</code>, <code>while</code>, and <code>do-while</code> structures control execution order based on conditions and repetitions.</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 03</div>
+      <div class="theory-title">Functions</div>
+      <div class="theory-body">Functions are reusable blocks of code. They have a <code>return type</code>, <code>name</code>, and optional <code>parameters</code>. Functions promote DRY (Don't Repeat Yourself) programming and modularity.</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">📦</span><span class="concept-name">Arrays & Data Structures</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <p>An <strong>array</strong> is a fixed-size collection of same-type elements stored in contiguous memory.</p>
+      <div class="formula">int arr[5] = {10, 20, 30, 40, 50}; // arr[0] = 10</div>
+      <h4>Key Data Structures</h4>
+      <ul>
+        <li><strong>Array:</strong> Random access, O(1); insert/delete O(n)</li>
+        <li><strong>Stack:</strong> LIFO — Last In, First Out. Push/Pop operations</li>
+        <li><strong>Queue:</strong> FIFO — First In, First Out. Enqueue/Dequeue</li>
+        <li><strong>Linked List:</strong> Dynamic size, nodes with data + pointer</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">🔄</span><span class="concept-name">Sorting Algorithms</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <table class="theory-table">
+        <tr><th>Algorithm</th><th>Best</th><th>Average</th><th>Worst</th></tr>
+        <tr><td>Bubble Sort</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td></tr>
+        <tr><td>Selection Sort</td><td>O(n²)</td><td>O(n²)</td><td>O(n²)</td></tr>
+        <tr><td>Insertion Sort</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td></tr>
+        <tr><td>Merge Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td></tr>
+        <tr><td>Quick Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n²)</td></tr>
+      </table>
+      <div class="formula">Big O notation: describes algorithm efficiency relative to input size n</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">🌀</span><span class="concept-name">Recursion</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <p>A function that calls itself. Every recursive solution needs a <strong>base case</strong> (stops recursion) and a <strong>recursive case</strong>.</p>
+      <div class="formula">factorial(n) = n × factorial(n-1), base: factorial(0) = 1</div>
+      <h4>When to use recursion</h4>
+      <ul>
+        <li>Problems that can be broken into smaller similar sub-problems</li>
+        <li>Tree/graph traversal, divide-and-conquer algorithms</li>
+        <li>Warning: deep recursion can cause stack overflow</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-title">Topic Coverage</div>
+    <div class="progress-item"><div class="progress-top"><span>Variables & Data Types</span><span>95%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:95%;background:linear-gradient(90deg,#7c3aed,#ec4899)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Control Flow</span><span>90%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:90%;background:linear-gradient(90deg,#7c3aed,#ec4899)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Functions & Scope</span><span>80%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:80%;background:linear-gradient(90deg,#7c3aed,#ec4899)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Data Structures</span><span>70%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:70%;background:linear-gradient(90deg,#7c3aed,#ec4899)"></div></div></div>
+  </div>
+  <button class="back-btn" onclick="showPage('home')">← Back to All Subjects</button>
+</div>
+
+<!-- ===================== DIGITAL SYSTEMS PAGE ===================== -->
+<div id="page-ds" class="subpage">
+  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+  <div class="subpage-hero">
+    <span class="subpage-tag" style="color:#10b981">// EE101 · Digital Systems</span>
+    <h1 class="subpage-title">Digital<br>Systems</h1>
+    <p class="subpage-desc">The language of electronics — binary logic, gates, and circuits that make computers possible.</p>
+  </div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 01</div>
+      <div class="theory-title">Boolean Algebra</div>
+      <div class="theory-body">Mathematical framework for binary logic. Operations: <code>AND (·)</code>, <code>OR (+)</code>, <code>NOT (')</code>. Laws include commutative, associative, distributive, and De Morgan's theorems.</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 02</div>
+      <div class="theory-title">Logic Gates</div>
+      <div class="theory-body">Physical implementation of Boolean operations. Basic gates: <code>AND</code>, <code>OR</code>, <code>NOT</code>, <code>NAND</code>, <code>NOR</code>, <code>XOR</code>, <code>XNOR</code>. NAND and NOR are universal gates.</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 03</div>
+      <div class="theory-title">Sequential Circuits</div>
+      <div class="theory-body">Circuits with memory — output depends on current input AND past state. Built using <code>flip-flops</code>. Examples: registers, counters, shift registers, and finite state machines.</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">📊</span><span class="concept-name">Truth Tables & Boolean Expressions</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <p>Truth tables enumerate all possible input combinations and their outputs.</p>
+      <table class="theory-table">
+        <tr><th>A</th><th>B</th><th>AND</th><th>OR</th><th>NAND</th><th>XOR</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+      </table>
+      <h4>De Morgan's Theorems</h4>
+      <div class="formula">NOT(A AND B) = NOT(A) OR NOT(B)</div>
+      <div class="formula">NOT(A OR B) = NOT(A) AND NOT(B)</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">🔁</span><span class="concept-name">Flip-Flops</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <p>Flip-flops are 1-bit memory elements triggered by clock signals.</p>
+      <h4>Types of Flip-Flops</h4>
+      <ul>
+        <li><strong>SR Flip-Flop:</strong> Set-Reset. Forbidden state when S=R=1</li>
+        <li><strong>D Flip-Flop:</strong> Data flip-flop. Q follows D on clock edge. Most common</li>
+        <li><strong>JK Flip-Flop:</strong> Like SR but no forbidden state. J=K=1 toggles output</li>
+        <li><strong>T Flip-Flop:</strong> Toggle. Output flips when T=1 on clock edge</li>
+      </ul>
+      <div class="formula">D Flip-Flop: Q(next) = D (on rising clock edge)</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">🗺️</span><span class="concept-name">Karnaugh Maps (K-Maps)</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <p>A visual method to simplify Boolean expressions by grouping 1s in the truth table.</p>
+      <h4>Rules for K-Map grouping</h4>
+      <ul>
+        <li>Groups must be powers of 2 (1, 2, 4, 8…)</li>
+        <li>Groups can wrap around edges</li>
+        <li>Larger groups = more simplification</li>
+        <li>Each cell can be in multiple groups</li>
+      </ul>
+      <div class="quote-block">Goal: Find the Minimum Sum of Products (SOP) or Product of Sums (POS) expression</div>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-title">Topic Coverage</div>
+    <div class="progress-item"><div class="progress-top"><span>Boolean Algebra</span><span>88%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:88%;background:linear-gradient(90deg,#10b981,#00d4ff)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Logic Gates</span><span>92%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:92%;background:linear-gradient(90deg,#10b981,#00d4ff)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Combinational Circuits</span><span>75%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:75%;background:linear-gradient(90deg,#10b981,#00d4ff)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Flip-Flops & Sequential</span><span>60%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:60%;background:linear-gradient(90deg,#10b981,#00d4ff)"></div></div></div>
+  </div>
+  <button class="back-btn" onclick="showPage('home')">← Back to All Subjects</button>
+</div>
+
+<!-- ===================== ENGLISH PAGE ===================== -->
+<div id="page-en" class="subpage">
+  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+  <div class="subpage-hero">
+    <span class="subpage-tag" style="color:#f59e0b">// EN101 · English</span>
+    <h1 class="subpage-title">English<br>Language</h1>
+    <p class="subpage-desc">Professional communication skills for the IT world — writing, speaking, and presenting with clarity.</p>
+  </div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 01</div>
+      <div class="theory-title">Technical Writing</div>
+      <div class="theory-body">Clear, concise, and accurate writing for technical audiences. Includes <code>documentation</code>, <code>reports</code>, <code>manuals</code>, and <code>proposals</code>. Key: know your audience and purpose.</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 02</div>
+      <div class="theory-title">Grammar Essentials</div>
+      <div class="theory-body">Master <code>tenses</code>, <code>subject-verb agreement</code>, <code>articles</code>, <code>prepositions</code>, and <code>punctuation</code>. Correct grammar builds credibility and ensures clarity in professional contexts.</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 03</div>
+      <div class="theory-title">Presentations & Speaking</div>
+      <div class="theory-body">Structure: <code>Introduction → Body → Conclusion</code>. Use signposting language, maintain eye contact, manage pace and tone. PowerPoint best practices for technical presentations.</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">✍️</span><span class="concept-name">Essay & Report Writing</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <h4>Report Structure</h4>
+      <ul>
+        <li><strong>Title Page:</strong> Title, author, date, institution</li>
+        <li><strong>Abstract/Executive Summary:</strong> Brief overview (150-200 words)</li>
+        <li><strong>Introduction:</strong> Background, purpose, scope</li>
+        <li><strong>Body/Findings:</strong> Detailed analysis with headings</li>
+        <li><strong>Conclusion:</strong> Summary and recommendations</li>
+        <li><strong>References:</strong> IEEE or APA citation format</li>
+      </ul>
+      <div class="quote-block">"Good writing is clear thinking made visible." — Clarity over complexity always.</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">💬</span><span class="concept-name">IT Vocabulary & Terminology</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <table class="theory-table">
+        <tr><th>Term</th><th>Definition</th></tr>
+        <tr><td>Algorithm</td><td>Step-by-step procedure for solving a problem</td></tr>
+        <tr><td>Interface</td><td>Point of interaction between components or users</td></tr>
+        <tr><td>Protocol</td><td>Set of rules governing communication</td></tr>
+        <tr><td>Bandwidth</td><td>Maximum data transfer rate of a network</td></tr>
+        <tr><td>Encryption</td><td>Converting data to unreadable format for security</td></tr>
+        <tr><td>Debugging</td><td>Finding and fixing errors in code</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-title">Topic Coverage</div>
+    <div class="progress-item"><div class="progress-top"><span>Grammar & Structure</span><span>80%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:80%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Technical Writing</span><span>75%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:75%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Presentations</span><span>65%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:65%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>IT Vocabulary</span><span>70%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:70%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div></div>
+  </div>
+  <button class="back-btn" onclick="showPage('home')">← Back to All Subjects</button>
+</div>
+
+<!-- ===================== MULTIMEDIA PAGE ===================== -->
+<div id="page-mm" class="subpage">
+  <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
+  <div class="subpage-hero">
+    <span class="subpage-tag" style="color:#ec4899">// MM101 · Multimedia</span>
+    <h1 class="subpage-title">Multimedia<br>Systems</h1>
+    <p class="subpage-desc">The art and science of digital media — from pixels and sound waves to streaming video and interactive design.</p>
+  </div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 01</div>
+      <div class="theory-title">Digital Images</div>
+      <div class="theory-body">Images are grids of <code>pixels</code>. Resolution = width × height in pixels. Color depth determines colors per pixel (8-bit = 256 colors, 24-bit = 16.7M colors). File size = Resolution × Color Depth.</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 02</div>
+      <div class="theory-title">Audio Fundamentals</div>
+      <div class="theory-body">Sound is captured via <code>sampling</code> (samples per second = Hz) and <code>quantization</code> (bit depth). CD quality: 44.1 kHz, 16-bit. Higher values = better quality but larger files.</div>
+    </div>
+    <div class="theory-card">
+      <div class="theory-num">CONCEPT 03</div>
+      <div class="theory-title">Video & Compression</div>
+      <div class="theory-body">Video = sequence of frames (images). Frame rate (fps) determines smoothness. Compression removes redundancy — <code>spatial</code> (within frames) and <code>temporal</code> (between frames). Standards: H.264, H.265.</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">🎨</span><span class="concept-name">Color Models</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <table class="theory-table">
+        <tr><th>Model</th><th>Use Case</th><th>Components</th></tr>
+        <tr><td>RGB</td><td>Screens/Displays</td><td>Red, Green, Blue (additive)</td></tr>
+        <tr><td>CMYK</td><td>Print</td><td>Cyan, Magenta, Yellow, Black (subtractive)</td></tr>
+        <tr><td>HSV/HSB</td><td>Color picking</td><td>Hue, Saturation, Value/Brightness</td></tr>
+        <tr><td>YCbCr</td><td>Video compression</td><td>Luminance + Chroma components</td></tr>
+      </table>
+      <div class="formula">RGB(255, 0, 0) = Pure Red | RGB(0, 0, 0) = Black | RGB(255,255,255) = White</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">📁</span><span class="concept-name">File Formats & Compression</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <h4>Image Formats</h4>
+      <ul>
+        <li><strong>JPEG:</strong> Lossy compression, best for photos (DCT-based)</li>
+        <li><strong>PNG:</strong> Lossless, supports transparency (good for graphics)</li>
+        <li><strong>GIF:</strong> 256 colors, supports animation</li>
+        <li><strong>SVG:</strong> Vector format, scalable without quality loss</li>
+      </ul>
+      <h4>Audio/Video Formats</h4>
+      <ul>
+        <li><strong>MP3:</strong> Lossy audio (MPEG Layer 3), perceptual coding</li>
+        <li><strong>WAV:</strong> Uncompressed audio, high quality, large files</li>
+        <li><strong>MP4:</strong> Container for H.264 video + AAC audio</li>
+        <li><strong>WebM:</strong> Open web video format using VP8/VP9</li>
+      </ul>
+      <div class="formula">Compression Ratio = Original Size / Compressed Size</div>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <div class="concept-header" onclick="toggleConcept(this)">
+      <div class="concept-header-left"><span class="concept-icon">🌐</span><span class="concept-name">Multimedia on the Web</span></div>
+      <span class="concept-chevron">▼</span>
+    </div>
+    <div class="concept-body">
+      <p>Web multimedia must balance quality with loading performance.</p>
+      <h4>Key Concepts</h4>
+      <ul>
+        <li><strong>Streaming:</strong> Progressive delivery — playback before full download</li>
+        <li><strong>CDN:</strong> Content Delivery Networks distribute media geographically</li>
+        <li><strong>Responsive Images:</strong> Different sizes for different screen resolutions</li>
+        <li><strong>Lazy Loading:</strong> Load media only when it enters viewport</li>
+      </ul>
+      <div class="quote-block">Rule of thumb: Use the smallest file that maintains acceptable quality for the target audience.</div>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-title">Topic Coverage</div>
+    <div class="progress-item"><div class="progress-top"><span>Digital Images & Color</span><span>85%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:85%;background:linear-gradient(90deg,#ec4899,#f59e0b)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Audio Processing</span><span>72%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:72%;background:linear-gradient(90deg,#ec4899,#f59e0b)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Video & Compression</span><span>68%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:68%;background:linear-gradient(90deg,#ec4899,#f59e0b)"></div></div></div>
+    <div class="progress-item"><div class="progress-top"><span>Web Multimedia</span><span>60%</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:60%;background:linear-gradient(90deg,#ec4899,#f59e0b)"></div></div></div>
+  </div>
+  <button class="back-btn" onclick="showPage('home')">← Back to All Subjects</button>
+</div>
+
+<script>
+  function showPage(page) {
+    // Hide everything
+    document.getElementById('home').style.display = 'none';
+    document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
+
+    if (page === 'home') {
+      document.getElementById('home').style.display = 'block';
+      document.getElementById('home').style.animation = 'none';
+      document.getElementById('home').offsetHeight;
+      document.getElementById('home').style.animation = 'pageIn 0.4s ease';
+    } else {
+      const el = document.getElementById('page-' + page);
+      if (el) {
+        el.classList.add('active');
+        el.style.animation = 'none';
+        el.offsetHeight;
+        el.style.animation = 'pageIn 0.4s ease';
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleConcept(header) {
+    const body = header.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    // Close all in the same subpage
+    const parent = header.closest('.subpage, #home');
+    if (parent) {
+      parent.querySelectorAll('.concept-body.open').forEach(b => b.classList.remove('open'));
+      parent.querySelectorAll('.concept-header.open').forEach(h => h.classList.remove('open'));
+    }
+    if (!isOpen) {
+      body.classList.add('open');
+      header.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>
